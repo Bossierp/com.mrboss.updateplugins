@@ -19,7 +19,10 @@ public class UpdatePlugin extends CordovaPlugin  {
 	@Override
 	public boolean execute(String action, JSONArray optionsArr, CallbackContext callbackContext) throws JSONException {
 		if (action.equals("update")) {
-			boolean flag = updateVersion();
+			String url = optionsArr.getString(0);
+			String ver = optionsArr.getString(1);
+			String name = optionsArr.getString(2);
+			boolean flag = updateVersion(url, ver, name);
 			return flag;
 		}
 		return false;
@@ -40,10 +43,10 @@ public class UpdatePlugin extends CordovaPlugin  {
         alertDialog.show();
     }
 
-	private Boolean  updateVersion() {
+	private Boolean  updateVersion(String url, String ver, String name) {
 		boolean flag = false;
 		Update ap = new Update(cordova.getActivity());
-		String str = ap.getServerMessage("http://192.168.1.31:555/Make5_0_Phone/Download/MrBossErp.apk", "1.0.0", "MrBossErp");
+		String str = ap.getServerMessage(url, ver, name);
 		if (str == "true") {
 			ap.doUpdate();
 			flag = true;

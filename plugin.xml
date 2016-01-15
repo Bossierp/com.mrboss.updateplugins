@@ -4,7 +4,7 @@
     <name>UpdatePlugin</name>
     <description>自更新插件</description>
     <js-module name="UpdatePlugin" src="www/UpdatePlugin.js">
-        <clobbers target="UpdatePlugin"/>
+        <clobbers target="cordova.UpdatePlugin"/>
     </js-module>
     <platform name="android">
         <config-file parent="/*" target="res/xml/config.xml">
