@@ -62,15 +62,15 @@ public class Update {
 
 	public void doUpdate(){
 		pd = new ProgressDialog(mContext);
-		pd.setTitle("正在下载");
-		pd.setMessage(apkName + "( V " + versionNo + ")");
+		pd.setTitle("");
+		pd.setMessage(apkName + "( v " + versionNo + ")");
 		// 设置ProgressDialog 的进度条是否不明确
 		pd.setIndeterminate(false);
 		pd.setMax(iProcessMax);
 		pd.setProgress(0);
 		// 设置进度条风格，风格为长形
 		pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-		pd.setButton("取 消", new SureButtonListener());
+		pd.setButton("取消 Cancel", new SureButtonListener());
 		pd.setCancelable(true);
 		downFile(updateUrl);
 	}
