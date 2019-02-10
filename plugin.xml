@@ -2,7 +2,7 @@
 <plugin id="com.mrboss.updateplugins" version="0.0.2" 
         xmlns="http://apache.org/cordova/ns/plugins/1.0">
     <name>UpdatePlugin</name>
-    <description>自更新插件</description>
+    <description>Update</description>
     <js-module name="UpdatePlugin" src="www/UpdatePlugin.js">
         <clobbers target="cordova.UpdatePlugin"/>
     </js-module>
