@@ -1,0 +1,17 @@
+﻿{
+  "name": "com.mrboss.updateplugins",
+  "version": "0.0.2",
+  "description": "updateplugins",
+  "cordova": {
+    "id": "com.mrboss.updateplugins",
+    "platforms": [
+      "android"
+    ]
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "author": "",
+  "license": "ISC"
+}
