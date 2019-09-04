@@ -22,6 +22,8 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.json.JSONObject;
 
+import com.blankj.utilcode.util.AppUtils;
+import com.blankj.utilcode.util.IntentUtils;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -81,8 +83,7 @@ public class Update {
 				try {
 					// InputStream is = entity.getContent();
 					URL urla = new URL(url);
-					HttpURLConnection connection = (HttpURLConnection) urla
-					                               .openConnection();
+					HttpURLConnection connection = (HttpURLConnection) urla.openConnection();
 					iApkSize = connection.getContentLength();
 
 					InputStream is = connection.getInputStream();
@@ -137,7 +138,8 @@ public class Update {
 	Handler installHandler = new Handler() {
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
-			install();
+			//install();
+			install(mContext);
 		}
 	};
 
@@ -169,6 +171,36 @@ public class Update {
 		// 程序自己退出
 		System.exit(0);
 	}
+	
+	
+	/**
+	 * 安装apk(兼容8.0系统)
+	 * @param context
+	 *     implementation 'com.blankj:utilcode:1.24.0'
+	 */
+	public static void install(Context context) {
+		/*File exportDir = new File(Environment.getExternalStorageDirectory(), "MrBoss_BackupDB");
+		File file = new File(exportDir, "OfflinePosApp.apk");*/
+
+		File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "MrBossErp.apk");
+		if (!file.exists()) {
+			file = new File(context.getFilesDir(), "MrBossErp.apk");
+		}
+
+		Intent intent = new Intent(Intent.ACTION_VIEW);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		if(Build.VERSION.SDK_INT > 23) { //判读版本是否在7.0以上
+			AppUtils.installApp(file);  //安装apk8.0
+		} else if (Build.VERSION.SDK_INT == 23) {
+			Intent intent1 = IntentUtils.getInstallAppIntent(file.getAbsolutePath(), true);
+			intent1.setAction("android.intent.action.VIEW");
+			context.startActivity(intent1);
+		} else {
+			intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+			context.startActivity(intent);
+		}
+	}
+	
 
 	// 构建Runnable对象，在runnable中更新界面
 	Runnable runnableUi = new Runnable() {
