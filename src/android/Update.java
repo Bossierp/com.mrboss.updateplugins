@@ -1,4 +1,4 @@
-package com.mrboss.updateplugins;
+﻿package com.mrboss.updateplugins;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -123,6 +123,9 @@ public class Update {
 					if (fileOutputStream != null) {
 						fileOutputStream.close();
 					}
+					
+					Thread.sleep(10000);
+					
 					DoInstall();
 				} catch (Exception e) {
 					e.printStackTrace();
