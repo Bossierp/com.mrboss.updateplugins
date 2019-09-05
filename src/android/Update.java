@@ -36,6 +36,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.support.v4.content.FileProvider;
 
 public class Update {
 	String versionNo = "";
@@ -179,7 +180,7 @@ public class Update {
 	 * @param context
 	 *     implementation 'com.blankj:utilcode:1.24.0'
 	 */
-	public static void install(Context context) {
+	public void install(Context context) {
 		/*File exportDir = new File(Environment.getExternalStorageDirectory(), "MrBoss_BackupDB");
 		File file = new File(exportDir, "OfflinePosApp.apk");*/
 
@@ -191,7 +192,10 @@ public class Update {
 		Intent intent = new Intent(Intent.ACTION_VIEW);
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		if(Build.VERSION.SDK_INT > 23) { //判读版本是否在7.0以上
-			AppUtils.installApp(file);  //安装apk8.0
+			//AppUtils.installApp(file);  //安装apk8.0
+			
+			installApp(file);
+			
 		} else if (Build.VERSION.SDK_INT == 23) {
 			Intent intent1 = IntentUtils.getInstallAppIntent(file.getAbsolutePath(), true);
 			intent1.setAction("android.intent.action.VIEW");
@@ -202,6 +206,29 @@ public class Update {
 		}
 	}
 	
+	public void installApp(final File file) {
+		if (!isFileExists(file)) return;
+		mContext.startActivity(getInstallAppIntent(file, true));
+	}
+	private boolean isFileExists(final File file) {
+		return file != null && file.exists();
+	}
+	private Intent getInstallAppIntent(final File file, final boolean isNewTask) {
+		Intent intent = new Intent(Intent.ACTION_VIEW);
+		Uri data;
+		String type = "application/vnd.android.package-archive";
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+			data = Uri.fromFile(file);
+		} else {
+			String authority = mContext.getPackageName() + ".utilcode.provider";
+			data = FileProvider.getUriForFile(mContext, authority, file);
+			intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+		}
+		mContext.grantUriPermission(mContext.getPackageName(), data, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+		intent.setDataAndType(data, type);
+		return isNewTask ? intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) : intent;
+	}
 
 	// 构建Runnable对象，在runnable中更新界面
 	Runnable runnableUi = new Runnable() {

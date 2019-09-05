@@ -16,6 +16,10 @@
         <source-file src="src/android/SureButtonListener.java" target-dir="src/com/mrboss/updateplugins"/>
         <source-file src="src/android/Update.java" target-dir="src/com/mrboss/updateplugins"/>
 		
+		<config-file target="AndroidManifest.xml" parent="/manifest">
+		  <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
+		</config-file>
+		
 		<framework src="com.blankj:utilcode:1.24.0" />
     </platform>
 </plugin>
