@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<plugin id="com.mrboss.updateplugins" version="0.0.2" 
+<plugin id="com.mrboss.updateplugins" version="1.0.0" 
         xmlns="http://apache.org/cordova/ns/plugins/1.0">
     <name>UpdatePlugin</name>
     <description>Update</description>
