@@ -19,10 +19,9 @@
 		<config-file target="AndroidManifest.xml" parent="/manifest">
 		  <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 		</config-file>
-     <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application">
-       <application android:usesCleartextTraffic="true" />
-     </edit-config>
-		
+      <edit-config file="AndroidManifest.xml" mode="merge" target="/manifest/application">
+            <application android:usesCleartextTraffic="true" />
+     </edit-config>		
 		<framework src="com.blankj:utilcode:1.24.0" />
     </platform>
 </plugin>
