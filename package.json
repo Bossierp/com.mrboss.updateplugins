@@ -1,6 +1,6 @@
 {
   "name": "com.mrboss.updateplugins",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Update",
   "cordova": {
     "id": "com.mrboss.updateplugins",
@@ -12,6 +12,6 @@
     "ecosystem:cordova",
     "cordova-android"
   ],
-  "author": "1",
+  "author": "mrboss",
   "license": "ISC"
 }
